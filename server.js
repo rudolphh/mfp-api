@@ -11,8 +11,17 @@ const app            = express();
 const port = process.env.PORT || 8000;
 
 
-mfp.diaryStatusCheck(process.env.USERNAME, function(status) {
-  console.log(status);// public, private, or 'invalid user'
+mfp.apiStatusCheck(function(errors) {
+  if (errors.length !== 0) {
+    errors.forEach(function(error){
+      console.log(error);
+    });
+  } else {
+    console.log("There aren't any errors!");
+    mfp.diaryStatusCheck(process.env.MFPUSER, function(status) {
+      console.log('diaryStatusCheck: ' + status);// public, private, or 'invalid user'
+    });
+  }
 });
 
 
