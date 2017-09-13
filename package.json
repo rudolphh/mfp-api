@@ -15,6 +15,7 @@
 		"express": "^4.15.4",
 		"helmet": "^3.1.0",
 		"mfp": "^0.5.6",
+		"mfpdb": "git+https://github.com/rudolphh/mfpdb.git",
 		"mocha": "^3.2.0",
 		"mongodb": "^2.2.31",
 		"zombie": "^5.0.5"

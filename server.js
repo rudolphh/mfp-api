@@ -6,6 +6,11 @@ const MongoClient    = require('mongodb').MongoClient;
 const bodyParser     = require('body-parser');
 const mfp            = require('mfp');
 
+var MFPDatabase = require('mfpdb');
+var mfpDB = new MFPDatabase(process.env.MFPUSER, process.env.MFPPASS);
+
+mfpDB.makePublic(results => console.log(results));
+
 const app            = express();
 
 const port = process.env.PORT || 8000;
