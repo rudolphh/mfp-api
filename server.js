@@ -20,7 +20,7 @@ mfp.apiStatusCheck(function(errors) {
     console.log("There aren't any errors!");
     mfp.diaryStatusCheck(process.env.MFPUSER, function(status) {
       console.log('diaryStatusCheck: ' + status);// public, private, or 'invalid user'
-      require('./app/routes/index')(app, {});// no db yet so passing empty object
+      require('./app/routes/index')(app, mfp);// no db yet so passing empty object
     });
   }
 });
