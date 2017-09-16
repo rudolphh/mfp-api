@@ -33,7 +33,12 @@ mfp.apiStatusCheck(function(errors) {
 });
 
 
-
+//404 Not Found Middleware
+app.use(function(req, res, next) {
+  res.status(404)
+    .type('text')
+    .send('Not Found');
+});
 
 //Start our server and tests!
 app.listen(port, function () {
