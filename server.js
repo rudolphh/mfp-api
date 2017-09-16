@@ -6,14 +6,15 @@ const MongoClient    = require('mongodb').MongoClient;
 const bodyParser     = require('body-parser');
 const mfp            = require('mfp');
 
-var MFPDatabase = require('mfpdb');
-var mfpDB = new MFPDatabase(process.env.MFPUSER, process.env.MFPPASS);
-
-mfpDB.makePublic(results => console.log(results));
+// var MFPDatabase = require('mfpdb');
+// var mfpDB = new MFPDatabase(process.env.MFPUSER, process.env.MFPPASS);
 
 const app            = express();
-
 const port = process.env.PORT || 8000;
+
+app.use('/public', express.static(process.cwd() + '/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 mfp.apiStatusCheck(function(errors) {
@@ -26,9 +27,13 @@ mfp.apiStatusCheck(function(errors) {
     mfp.diaryStatusCheck(process.env.MFPUSER, function(status) {
       console.log('diaryStatusCheck: ' + status);// public, private, or 'invalid user'
       require('./app/routes/index')(app, mfp);// no db yet so passing empty object
+      // mfpDB.makePublic(results => { console.log(results) });
     });
   }
 });
+
+
+
 
 //Start our server and tests!
 app.listen(port, function () {
