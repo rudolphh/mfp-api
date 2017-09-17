@@ -5,6 +5,7 @@ const express        = require('express');
 const MongoClient    = require('mongodb').MongoClient;
 const bodyParser     = require('body-parser');
 const mfp            = require('mfp');
+const reload = require('reload');
 
 // var MFPDatabase = require('mfpdb');
 // var mfpDB = new MFPDatabase(process.env.MFPUSER, process.env.MFPPASS);
@@ -15,6 +16,14 @@ const port = process.env.PORT || 8000;
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//Index page (static HTML)
+app.route('/')
+  .get(function (req, res) {
+    res.sendFile(process.cwd() + '/app/views/index.html');
+  });
+
+reload(app);
 
 
 mfp.apiStatusCheck(function(errors) {
